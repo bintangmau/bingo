@@ -1,13 +1,13 @@
 from numpy.matrixlib.defmatrix import matrix
-from board import board
+from board import board as generate_board, Board
 from shuffle_number import shuffle
 import numpy as np
 
 class Play:
     
     def __init__(self) -> None:
+        self.board = generate_board
         self.round_now = 0
-        # self.num = shuffle[self.round_now]
         self.check_win
         self.check
         self.results = []
@@ -27,7 +27,7 @@ class Play:
         num = shuffle[self.round_now]
         self.check_win()
         print("Check ...", num)
-        for x in board[0]:
+        for x in self.board[0]:
             for y in x:
                 c_idx += 1
                 if(num == y):
@@ -35,16 +35,18 @@ class Play:
                     idx = np.where(x == num)
                     x[idx[0][0]] = 0
                     self.results.append(c_idx)
-                    print(matrix(board[0]))
+                    print(matrix(self.board[0]))
                 
     def check_win(self):    
         for y in self.win_pattern:
             is_in = np.isin(y, self.results)
             compare = self.win_condition == is_in 
             is_equal = compare.all() 
-            print(is_in, "IS IN")
             if is_equal:
                 print("=============================== BINGO !!! =========================")
+                self.board = Board.generate_board()
+                self.round_now = 0
+                self.results = []
                 
     def next_match(self):
         self.check()

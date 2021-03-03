@@ -2,9 +2,9 @@ import random
 
 class Shuffled:
     
-    def __init__(self, arr, n) -> None:
+    def __init__(self, arr) -> None:
         self.arr = arr
-        self.n = n
+        self.n = len(arr)
 
     def randomize (self):
         for i in range(self.n - 1, 0, -1): 
@@ -25,4 +25,4 @@ class Number:
         return arr
 
 arr = Number.arr() 
-shuffle = Shuffled(arr, len(arr)).randomize()
+shuffle = Shuffled(arr).randomize()

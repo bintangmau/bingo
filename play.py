@@ -10,9 +10,10 @@ class Play:
         self.round_now = 0
         self.check_win
         self.check
-        self.results = []
+        self.win_position
+        self.results = [13]
         self.win_condition  = np.full(shape=5, fill_value=True, dtype=np.bool)
-        self.win_pattern = [
+        self.win_pattern = np.array([
             list(range(1, 6)), 
             list(range(6, 11)),  
             list(range(11, 16)), 
@@ -20,7 +21,7 @@ class Play:
             list(range(21, 26)),
             [1, 7, 13, 19, 25],
             [5, 9, 13, 17, 21]
-        ]
+        ])
         
     def check(self):
         c_idx = 0
@@ -38,16 +39,18 @@ class Play:
                     print(matrix(self.board[0]))
                 
     def check_win(self):    
+        win_idx = 0
         for y in self.win_pattern:
+            win_idx += 1
             is_in = np.isin(y, self.results)
             compare = self.win_condition == is_in 
-            is_equal = compare.all() 
+            is_equal = compare.all()
             if is_equal:
                 print("=============================== BINGO !!! =========================")
                 self.board = Board.generate_board()
                 self.round_now = 0
                 self.results = []
-                
+    
     def next_match(self):
         self.check()
         if self.round_now == 74:

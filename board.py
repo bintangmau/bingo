@@ -17,9 +17,8 @@ class Board:
         arr = np.split(nums, 5)
 
         for x in arr:
-            n = len(x)
             selected = []
-            shuffled = Shuffled(x, n).randomize()
+            shuffled = Shuffled(x).randomize()
             for i in range(len(shuffled)):
                 if(i < 5):
                     selected.append(shuffled[i])
